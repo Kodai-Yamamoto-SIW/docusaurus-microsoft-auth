@@ -1,12 +1,15 @@
 import type { ComponentType } from 'react';
 
-import OriginalComponentTypes from '@theme-original/NavbarItem/ComponentTypes';
+import * as OriginalComponentTypesModule from '@theme-original/NavbarItem/ComponentTypes';
 import CustomAuthAccountNavbarItem from '../CustomAuthAccount';
 
 type ComponentTypesMap = Record<string, ComponentType<unknown>>;
 
+const baseComponentTypes = (OriginalComponentTypesModule as { default?: ComponentTypesMap } & ComponentTypesMap).default ??
+  (OriginalComponentTypesModule as ComponentTypesMap);
+
 const ComponentTypes = {
-  ...(OriginalComponentTypes as ComponentTypesMap),
+  ...baseComponentTypes,
   'custom-auth-account': CustomAuthAccountNavbarItem,
 };
 
