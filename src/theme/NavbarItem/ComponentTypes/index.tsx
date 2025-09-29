@@ -1,15 +1,24 @@
 import type { ComponentType } from 'react';
 
-import * as OriginalComponentTypesModule from '@theme-original/NavbarItem/ComponentTypes';
 import CustomAuthAccountNavbarItem from '../CustomAuthAccount';
 
 type ComponentTypesMap = Record<string, ComponentType<unknown>>;
 
-const baseComponentTypes = (OriginalComponentTypesModule as { default?: ComponentTypesMap } & ComponentTypesMap).default ??
-  (OriginalComponentTypesModule as ComponentTypesMap);
+const loadBaseComponentTypes = (): ComponentTypesMap => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const original = require('@theme-original/NavbarItem/ComponentTypes') as {
+    default?: ComponentTypesMap;
+  } & ComponentTypesMap;
+
+  if (original && typeof original === 'object') {
+    return original.default ?? original;
+  }
+
+  throw new Error('Failed to load original navbar component map');
+};
 
 const ComponentTypes = {
-  ...baseComponentTypes,
+  ...loadBaseComponentTypes(),
   'custom-auth-account': CustomAuthAccountNavbarItem,
 };
 
