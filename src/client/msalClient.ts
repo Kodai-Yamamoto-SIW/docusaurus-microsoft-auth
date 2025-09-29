@@ -1,4 +1,3 @@
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import {
   PublicClientApplication,
   type EndSessionRequest,
@@ -11,8 +10,10 @@ import { buildMsalConfiguration } from './authConfig';
 
 let msalInstance: IPublicClientApplication | null = null;
 
+const canUseDOM = typeof window !== 'undefined' && typeof window.document !== 'undefined';
+
 export const getMsalInstance = (config: EnabledAuthConfig): IPublicClientApplication => {
-  if (!ExecutionEnvironment.canUseDOM) {
+  if (!canUseDOM) {
     throw new Error('MSAL クライアントはブラウザ環境でのみ初期化できます。');
   }
 

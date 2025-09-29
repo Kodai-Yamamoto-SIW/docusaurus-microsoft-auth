@@ -1,5 +1,4 @@
 import path from 'path';
-import { fileURLToPath } from 'url';
 import type { Plugin } from '@docusaurus/types';
 
 export type { AuthEnvironment, AuthConfig, EnabledAuthConfig, DisabledAuthConfig } from './client/authConfig';
@@ -14,14 +13,9 @@ export {
   useAuthAccountContext,
   type AuthAccountContextValue,
 } from './client/AuthAccountContext';
-export { default as AuthGuard } from './client/components/AuthGuard';
-export { default as LoadingScreen } from './client/components/LoadingScreen';
-export type { LoadingScreenProps } from './client/components/LoadingScreen';
-export { default as LoginScreen } from './client/components/LoginScreen';
-export type { LoginScreenProps } from './client/components/LoginScreen';
 
 export default function microsoftAuthPlugin(): Plugin<void> {
-  const dirname = path.dirname(fileURLToPath(import.meta.url));
+  const dirname = __dirname;
   return {
     name: '@kodai-yamamoto-siw/docusaurus-microsoft-auth',
     getThemePath() {
