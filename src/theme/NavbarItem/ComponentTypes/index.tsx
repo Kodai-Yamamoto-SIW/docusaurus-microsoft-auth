@@ -1,24 +1,29 @@
 import type { ComponentType } from 'react';
 
+import DefaultNavbarItem from '@theme-original/NavbarItem/DefaultNavbarItem';
+import DocNavbarItem from '@theme-original/NavbarItem/DocNavbarItem';
+import DocSidebarNavbarItem from '@theme-original/NavbarItem/DocSidebarNavbarItem';
+import DocsVersionDropdownNavbarItem from '@theme-original/NavbarItem/DocsVersionDropdownNavbarItem';
+import DocsVersionNavbarItem from '@theme-original/NavbarItem/DocsVersionNavbarItem';
+import DropdownNavbarItem from '@theme-original/NavbarItem/DropdownNavbarItem';
+import HtmlNavbarItem from '@theme-original/NavbarItem/HtmlNavbarItem';
+import LocaleDropdownNavbarItem from '@theme-original/NavbarItem/LocaleDropdownNavbarItem';
+import SearchNavbarItem from '@theme-original/NavbarItem/SearchNavbarItem';
+
 import CustomAuthAccountNavbarItem from '../CustomAuthAccount';
 
-type ComponentTypesMap = Record<string, ComponentType<unknown>>;
+type ComponentTypesMap = Record<string, ComponentType<any>>;
 
-const loadBaseComponentTypes = (): ComponentTypesMap => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const original = require('@theme-original/NavbarItem/ComponentTypes') as {
-    default?: ComponentTypesMap;
-  } & ComponentTypesMap;
-
-  if (original && typeof original === 'object') {
-    return original.default ?? original;
-  }
-
-  throw new Error('Failed to load original navbar component map');
-};
-
-const ComponentTypes = {
-  ...loadBaseComponentTypes(),
+const ComponentTypes: ComponentTypesMap = {
+  default: DefaultNavbarItem,
+  dropdown: DropdownNavbarItem,
+  html: HtmlNavbarItem,
+  doc: DocNavbarItem,
+  docSidebar: DocSidebarNavbarItem,
+  docsVersion: DocsVersionNavbarItem,
+  docsVersionDropdown: DocsVersionDropdownNavbarItem,
+  localeDropdown: LocaleDropdownNavbarItem,
+  search: SearchNavbarItem,
   'custom-auth-account': CustomAuthAccountNavbarItem,
 };
 
